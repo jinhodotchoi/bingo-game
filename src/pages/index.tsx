@@ -25,7 +25,7 @@ const Landing_Page: FC = () => {
 
   return (
     <Box bgColor={"pink.50"} h={"100vh"} display={"flex"}>
-      <Box m={"auto"}>
+      <Box m={"auto"} flexShrink={0}>
         <VStack gap={20}>
           <Heading>
             <Highlight query={"영양소 빙고게임"}>즐거운 영양소 빙고게임 ❤️</Highlight>

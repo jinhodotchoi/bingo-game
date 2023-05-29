@@ -12,8 +12,8 @@ const Bingo_Page: FC = () => {
 
   return (
     <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
-      <Box bgColor={"pink.50"} h={"100vh"} pos={"relative"}>
-        <Container maxW={"750px"} w={"750px"} pos={"absolute"} top={"50%"} left={"50%"} transform={"translate(-50%, -50%)"}>
+      <Box bgColor={"pink.50"} h={"100vh"} display={"flex"}>
+        <Container maxW={"750px"} w={"750px"} flexShrink={0} m={"auto"}>
           <Flex direction={"column"} gap={5}>
             <Flex justifyContent={"space-between"} alignItems={"center"}>
               <Heading as={"h1"} fontSize={"3xl"}>

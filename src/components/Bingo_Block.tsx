@@ -45,7 +45,7 @@ const Bingo_Block: FC<{
         display={"flex"}
         alignItems={"center"}
         justifyContent={"center"}
-        position={"relative"}
+        pos={"relative"}
         transition={"all .2s linear"}
         {...(!bingo.isOpen && hoverEffect)}
         onClick={() => setBingo({ isOpen: true })}
@@ -61,7 +61,7 @@ const Bingo_Block: FC<{
           ))
           .with(true, () => (
             <Box fontSize={"18px"}>
-              <Select position={"absolute"} top={"5px"} right={"5px"} w={"50%"} onChange={onGroupSelectChanged} value={bingo.winningGroup}>
+              <Select pos={"absolute"} top={"5px"} right={"5px"} w={"50%"} onChange={onGroupSelectChanged} value={bingo.winningGroup}>
                 <option value={0}>--</option>
                 {groups.map((group) => (
                   <option value={group.id} key={group.id}>
