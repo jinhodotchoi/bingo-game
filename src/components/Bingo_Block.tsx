@@ -19,6 +19,7 @@ const Bingo_Block: FC<{
     _hover: {
       transform: "scale(1.05)",
       color: "pink.400",
+      bgColor: "pink.100",
     },
   };
 
@@ -33,7 +34,7 @@ const Bingo_Block: FC<{
         alignItems={"center"}
         justifyContent={"center"}
         position={"relative"}
-        transition={"all .2s ease-in-out"}
+        transition={"all .2s linear"}
         {...(!isOpen && hoverEffect)}
         onClick={() => setIsOpen(true)}
       >

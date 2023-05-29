@@ -2,7 +2,6 @@ import { FC } from "react";
 import { Box, Button, Heading, Highlight, Select, Text, VStack } from "@chakra-ui/react";
 import { groups } from "~/constants/group";
 import Link from "next/link";
-import Image from "next/image";
 
 const Landing_Page: FC = () => {
   return (
@@ -16,14 +15,16 @@ const Landing_Page: FC = () => {
             <Text>조의 갯수를 입력해주세요!</Text>
             <Select bgColor={"white"}>
               {groups.map((group) => (
-                <option value={group.id}>{group.id}조</option>
+                <option value={group.id} key={group.id}>
+                  {group.id}조
+                </option>
               ))}
             </Select>
             <Link href={"/bingo"}>
               <Button colorScheme={"pink"}>시작하기</Button>
             </Link>
           </VStack>
-          <Image src={"/choonsik.png"} alt={"귀여운 춘식이"} width={210} height={210} />
+          <img src={"/choonsik-animation.gif"} alt={"귀여운 춘식이"} width={210} height={210} />
         </VStack>
       </Box>
     </Box>
