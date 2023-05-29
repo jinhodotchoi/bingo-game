@@ -1,8 +1,5 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-
-const isSSR = typeof window === "undefined";
-
-const useIsomorphicEffect = isSSR ? useEffect : useLayoutEffect;
+import { useState } from "react";
+import { useIsomorphicEffect } from "~/hooks/useIsomorphicEffect";
 
 export const useStateWithStorage = <T>(key: string, initial: T) => {
   const [state, setStateImpl] = useState(initial);
@@ -11,8 +8,10 @@ export const useStateWithStorage = <T>(key: string, initial: T) => {
     const item = sessionStorage.getItem(key);
 
     if (item) {
-      const _item = JSON.parse(item) as T;
-      setStateImpl(_item);
+      try {
+        const _item = JSON.parse(item) as T;
+        setStateImpl(_item);
+      } catch (e) {}
     }
   }, [key]);
 

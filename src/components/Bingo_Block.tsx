@@ -5,19 +5,18 @@ import { match } from "ts-pattern";
 import { GroupId } from "~/constants/group";
 import { groupsAtom } from "~/atoms/groupAtom";
 import { useAtom } from "jotai";
-import { useStateWithStorage } from "~/hooks";
+import { useStateWithStorage } from "~/hooks/useStateWithStorage";
 
 const Bingo_Block: FC<{
   content: BingoContent;
 }> = ({ content }) => {
   const [isOpen, setIsOpen] = useStateWithStorage(`__open-${content.id}`, false);
-  const [currentGroup, setCurrentGroup] = useStateWithStorage<GroupId | undefined>(`__currentGroup-${content.id}`, undefined);
-  const [isSelectChanged, setIsSelectChanged] = useStateWithStorage(`__isSelectedChange-${content.id}`, false);
+  const [currentGroup, setCurrentGroup] = useStateWithStorage<GroupId | 0>(`__currentGroup-${content.id}`, 0);
 
   const [groups] = useAtom(groupsAtom);
 
   const backgroundColor = match(currentGroup)
-    .with(undefined, () => "white")
+    .with(0, () => "white")
     .otherwise((groupId) => groups.find(({ id }) => id == groupId)?.color);
 
   const hoverEffect = {
@@ -30,10 +29,9 @@ const Bingo_Block: FC<{
   };
 
   const onGroupSelectChanged: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setCurrentGroup(Number(e.target.value) as GroupId);
-    if (!isSelectChanged) {
-      setIsSelectChanged(true);
-    }
+    const num = Number(e.target.value);
+    const payload = num > 0 ? (num as GroupId) : 0;
+    setCurrentGroup(payload);
   };
 
   return (
@@ -63,9 +61,7 @@ const Bingo_Block: FC<{
           .with(true, () => (
             <Box fontSize={"18px"}>
               <Select position={"absolute"} top={"5px"} right={"5px"} w={"50%"} onChange={onGroupSelectChanged} value={currentGroup}>
-                <option value={undefined} disabled={isSelectChanged}>
-                  --
-                </option>
+                <option value={0}>--</option>
                 {groups.map((group) => (
                   <option value={group.id} key={group.id}>
                     {group.id}조
