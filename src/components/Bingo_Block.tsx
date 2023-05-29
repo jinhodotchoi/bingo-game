@@ -4,7 +4,7 @@ import { BingoContent } from "~/constants/bingo";
 import { match } from "ts-pattern";
 import { GroupId, groups } from "~/constants/group";
 
-const Landing_Bingo_Block: FC<{
+const Bingo_Block: FC<{
   content: BingoContent;
 }> = ({ content }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -65,4 +65,4 @@ const Landing_Bingo_Block: FC<{
   );
 };
 
-export default Landing_Bingo_Block;
+export default Bingo_Block;
