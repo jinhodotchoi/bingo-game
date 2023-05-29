@@ -12,8 +12,7 @@ type BingoAtom = Record<number, BingoEntity>;
 
 const storage = createJSONStorage<BingoAtom>(() => window.sessionStorage);
 
-export const bingoAtom = atomWithStorage<BingoAtom>(
-  "__bingo",
+export const getBingoAtomInitialValue = () =>
   bingoContents.reduce(
     (acc, bingoContent) => ({
       ...acc,
@@ -23,9 +22,9 @@ export const bingoAtom = atomWithStorage<BingoAtom>(
       },
     }),
     {} as BingoAtom
-  ),
-  storage
-);
+  );
+
+export const bingoAtom = atomWithStorage<BingoAtom>("__bingo", getBingoAtomInitialValue(), storage);
 
 export const bingoAtomFamily = atomFamily((id: number) =>
   atom(

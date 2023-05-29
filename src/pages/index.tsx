@@ -2,22 +2,25 @@ import { FC, MouseEventHandler, useState } from "react";
 import { Box, Button, Heading, Highlight, Select, Text, VStack } from "@chakra-ui/react";
 import { GroupId, groups } from "~/constants/group";
 import Link from "next/link";
-import { useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { groupNumberAtom } from "~/atoms/groupAtom";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { bingoAtom, getBingoAtomInitialValue } from "~/atoms/bingoAtom";
 
 const Landing_Page: FC = () => {
   const [groupNumber, setGroupNumber] = useState<GroupId>(1);
 
-  const [, setGroupNumberGlobally] = useAtom(groupNumberAtom);
+  const setGroupNumberGlobally = useSetAtom(groupNumberAtom);
+  const setBingo = useSetAtom(bingoAtom);
+
   const router = useRouter();
 
   const onLinkClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault();
-    sessionStorage.clear(); // clear cache // TODO... more effective way
+    setBingo(getBingoAtomInitialValue());
     setGroupNumberGlobally(groupNumber);
-    router.push(e.currentTarget.href);
+    router.push(e.currentTarget.href).catch(/* noop */);
   };
 
   return (
