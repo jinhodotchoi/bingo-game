@@ -1,37 +1,38 @@
 import React, { ChangeEventHandler, FC } from "react";
-import { Box, GridItem, Select, Text } from "@chakra-ui/react";
+import { Box, BoxProps, GridItem, Select, Text } from "@chakra-ui/react";
 import { BingoContent } from "~/constants/bingo";
 import { match } from "ts-pattern";
 import { GroupId } from "~/constants/group";
 import { groupsAtom } from "~/atoms/groupAtom";
 import { useAtom } from "jotai";
-import { useStateWithStorage } from "~/hooks/useStateWithStorage";
+import { bingoAtomFamily } from "~/atoms/bingoAtom";
 
 const Bingo_Block: FC<{
   content: BingoContent;
 }> = ({ content }) => {
-  const [isOpen, setIsOpen] = useStateWithStorage(`__open-${content.id}`, false);
-  const [currentGroup, setCurrentGroup] = useStateWithStorage<GroupId | 0>(`__currentGroup-${content.id}`, 0);
+  const [bingo, setBingo] = useAtom(bingoAtomFamily(content.id));
 
   const [groups] = useAtom(groupsAtom);
 
-  const backgroundColor = match(currentGroup)
+  const backgroundColor = match(bingo.winningGroup)
     .with(0, () => "white")
     .otherwise((groupId) => groups.find(({ id }) => id == groupId)?.color);
 
-  const hoverEffect = {
+  const onGroupSelectChanged: ChangeEventHandler<HTMLSelectElement> = (e) => {
+    const num = Number(e.target.value);
+    const payload = num > 0 ? (num as GroupId) : 0;
+    setBingo({
+      winningGroup: payload,
+    });
+  };
+
+  const hoverEffect: BoxProps = {
     cursor: "pointer",
     _hover: {
       transform: "scale(1.05)",
       color: "pink.400",
       bgColor: "pink.100",
     },
-  };
-
-  const onGroupSelectChanged: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const num = Number(e.target.value);
-    const payload = num > 0 ? (num as GroupId) : 0;
-    setCurrentGroup(payload);
   };
 
   return (
@@ -46,10 +47,10 @@ const Bingo_Block: FC<{
         justifyContent={"center"}
         position={"relative"}
         transition={"all .2s linear"}
-        {...(!isOpen && hoverEffect)}
-        onClick={() => setIsOpen(true)}
+        {...(!bingo.isOpen && hoverEffect)}
+        onClick={() => setBingo({ isOpen: true })}
       >
-        {match(isOpen)
+        {match(bingo.isOpen)
           .with(false, () => (
             <Box display={"flex"} alignItems={"flex-end"} gap={1}>
               <Text as={"strong"} fontSize={"24px"}>
@@ -60,7 +61,7 @@ const Bingo_Block: FC<{
           ))
           .with(true, () => (
             <Box fontSize={"18px"}>
-              <Select position={"absolute"} top={"5px"} right={"5px"} w={"50%"} onChange={onGroupSelectChanged} value={currentGroup}>
+              <Select position={"absolute"} top={"5px"} right={"5px"} w={"50%"} onChange={onGroupSelectChanged} value={bingo.winningGroup}>
                 <option value={0}>--</option>
                 {groups.map((group) => (
                   <option value={group.id} key={group.id}>
