@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { Global } from "@emotion/react";
+import Head from "next/head";
 
 const globalStyles = /* css */ `
     @font-face {
@@ -20,9 +21,15 @@ const theme = extendTheme({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider theme={theme}>
-      <Global styles={globalStyles} />
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <>
+      <Head>
+        <title>영양소 빙고게임</title>
+        <meta name="viewport" content="width=950, initial-scale=1, shrink-to-fit=no" />
+      </Head>
+      <ChakraProvider theme={theme}>
+        <Global styles={globalStyles} />
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </>
   );
 }

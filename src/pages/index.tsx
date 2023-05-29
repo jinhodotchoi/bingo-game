@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useAtom } from "jotai";
 import { groupNumberAtom } from "~/atoms/groupAtom";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const Landing_Page: FC = () => {
   const [groupNumber, setGroupNumber] = useState<GroupId>(1);
@@ -39,7 +40,7 @@ const Landing_Page: FC = () => {
               <Button colorScheme={"pink"}>시작하기</Button>
             </Link>
           </VStack>
-          <img src={"/choonsik-animation.gif"} alt={"귀여운 춘식이"} width={210} height={210} />
+          <Image src={"/choonsik-animation.gif"} alt={"귀여운 춘식이"} width={210} height={210} />
         </VStack>
       </Box>
     </Box>
