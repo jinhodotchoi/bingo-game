@@ -1,16 +1,22 @@
-import React, { FC, useState } from "react";
+import React, { ChangeEventHandler, FC } from "react";
 import { Box, GridItem, Select, Text } from "@chakra-ui/react";
 import { BingoContent } from "~/constants/bingo";
 import { match } from "ts-pattern";
-import { GroupId, groups } from "~/constants/group";
+import { GroupId } from "~/constants/group";
+import { groupsAtom } from "~/atoms/groupAtom";
+import { useAtom } from "jotai";
+import { useStateWithStorage } from "~/hooks";
 
 const Bingo_Block: FC<{
   content: BingoContent;
 }> = ({ content }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [currentGroup, setCurrentGroup] = useState<GroupId | undefined>();
+  const [isOpen, setIsOpen] = useStateWithStorage(`__open-${content.id}`, false);
+  const [currentGroup, setCurrentGroup] = useStateWithStorage<GroupId | undefined>(`__currentGroup-${content.id}`, undefined);
+  const [isSelectChanged, setIsSelectChanged] = useStateWithStorage(`__isSelectedChange-${content.id}`, false);
 
-  const backgrounColor = match(currentGroup)
+  const [groups] = useAtom(groupsAtom);
+
+  const backgroundColor = match(currentGroup)
     .with(undefined, () => "white")
     .otherwise((groupId) => groups.find(({ id }) => id == groupId)?.color);
 
@@ -23,11 +29,18 @@ const Bingo_Block: FC<{
     },
   };
 
+  const onGroupSelectChanged: ChangeEventHandler<HTMLSelectElement> = (e) => {
+    setCurrentGroup(Number(e.target.value) as GroupId);
+    if (!isSelectChanged) {
+      setIsSelectChanged(true);
+    }
+  };
+
   return (
     <GridItem>
       <Box
         aspectRatio={"1 / 1"}
-        bgColor={backgrounColor}
+        bgColor={backgroundColor}
         borderRadius={"xl"}
         boxShadow={"md"}
         display={"flex"}
@@ -49,12 +62,14 @@ const Bingo_Block: FC<{
           ))
           .with(true, () => (
             <Box fontSize={"18px"}>
-              <Select position={"absolute"} top={"5px"} right={"5px"} w={"50%"} onChange={(e) => setCurrentGroup(Number(e.target.value) as GroupId)} value={currentGroup}>
-                <option disabled selected value={undefined}>
+              <Select position={"absolute"} top={"5px"} right={"5px"} w={"50%"} onChange={onGroupSelectChanged} value={currentGroup}>
+                <option value={undefined} disabled={isSelectChanged}>
                   --
                 </option>
                 {groups.map((group) => (
-                  <option value={group.id}>{group.id}조</option>
+                  <option value={group.id} key={group.id}>
+                    {group.id}조
+                  </option>
                 ))}
               </Select>
               <Text>{content.title}</Text>

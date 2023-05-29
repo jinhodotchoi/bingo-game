@@ -1,9 +1,24 @@
-import { FC } from "react";
+import { FC, MouseEventHandler, useState } from "react";
 import { Box, Button, Heading, Highlight, Select, Text, VStack } from "@chakra-ui/react";
-import { groups } from "~/constants/group";
+import { GroupId, groups } from "~/constants/group";
 import Link from "next/link";
+import { useAtom } from "jotai";
+import { groupNumberAtom } from "~/atoms/groupAtom";
+import { useRouter } from "next/router";
 
 const Landing_Page: FC = () => {
+  const [groupNumber, setGroupNumber] = useState<GroupId>(1);
+
+  const [, setGroupNumberGlobally] = useAtom(groupNumberAtom);
+  const router = useRouter();
+
+  const onLinkClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
+    e.preventDefault();
+    sessionStorage.clear(); // clear cache // TODO... more effective way
+    setGroupNumberGlobally(groupNumber);
+    router.push(e.currentTarget.href);
+  };
+
   return (
     <Box bgColor={"pink.50"} h={"100vh"} display={"flex"}>
       <Box m={"auto"}>
@@ -13,14 +28,14 @@ const Landing_Page: FC = () => {
           </Heading>
           <VStack gap={5}>
             <Text>조의 갯수를 입력해주세요!</Text>
-            <Select bgColor={"white"}>
+            <Select bgColor={"white"} onChange={(e) => setGroupNumber(+e.target.value as GroupId)} value={groupNumber}>
               {groups.map((group) => (
                 <option value={group.id} key={group.id}>
                   {group.id}조
                 </option>
               ))}
             </Select>
-            <Link href={"/bingo"}>
+            <Link href={"/bingo"} onClick={onLinkClick}>
               <Button colorScheme={"pink"}>시작하기</Button>
             </Link>
           </VStack>

@@ -2,11 +2,14 @@ import React, { FC } from "react";
 import { Box, Container, Flex, Grid, Heading, List, ListItem } from "@chakra-ui/react";
 import Bingo_Block from "~/components/Bingo_Block";
 import { bingoContents } from "~/constants/bingo";
-import { groups } from "~/constants/group";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { groupsAtom } from "~/atoms/groupAtom";
+import { useAtom } from "jotai";
 
 const Bingo_Page: FC = () => {
+  const [groups] = useAtom(groupsAtom);
+
   return (
     <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
       <Box bgColor={"pink.50"} h={"100vh"} display={"flex"} pos={"relative"}>
@@ -19,7 +22,7 @@ const Bingo_Page: FC = () => {
               <Box bgColor={"white"} borderRadius={"xl"} p={2} boxShadow={"md"}>
                 <List display={"flex"} gap={3}>
                   {groups.map((group) => (
-                    <ListItem display={"flex"} gap={2} alignItems={"center"}>
+                    <ListItem key={group.id} display={"flex"} gap={2} alignItems={"center"}>
                       <Box width={"10px"} aspectRatio={"1 / 1"} bgColor={group.color} />
                       {group.id}조
                     </ListItem>
