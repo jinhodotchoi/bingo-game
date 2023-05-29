@@ -72,7 +72,9 @@ const Bingo_Block: FC<{
                   </option>
                 ))}
               </Select>
-              <Text>{content.title}</Text>
+              <Text whiteSpace={"pre-line"} textAlign={"center"}>
+                {content.title}
+              </Text>
             </Box>
           ))
           .exhaustive()}

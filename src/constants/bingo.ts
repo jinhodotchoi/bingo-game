@@ -6,66 +6,66 @@ export type BingoContent = {
 export const bingoContents: BingoContent[] = [
   {
     id: 1,
-    title: "어쩌구저쩌구 1",
+    title: "여섯 가지 영양소",
   },
   {
     id: 2,
-    title: "어쩌구저쩌구 2",
+    title: "필수 아미노산",
   },
   {
     id: 3,
-    title: "어쩌구저쩌구 3",
+    title: "철",
   },
   {
     id: 4,
-    title: "어쩌구저쩌구 4",
+    title: "비타민",
   },
   {
     id: 5,
-    title: "어쩌구저쩌구 5",
+    title: "식이 섬유",
   },
   {
     id: 6,
-    title: "어쩌구저쩌구 6",
+    title: "단백질",
   },
   {
     id: 7,
-    title: "어쩌구저쩌구 7",
+    title: "수용성 비타민",
   },
   {
     id: 8,
-    title: "어쩌구저쩌구 8",
+    title: "생리 기능 조절\n기능을 하는 영양소",
   },
   {
     id: 9,
-    title: "어쩌구저쩌구 9",
+    title: "인체 조직 구성\n기능을 하는 영양소",
   },
   {
     id: 10,
-    title: "어쩌구저쩌구 10",
+    title: "지용성 비타민",
   },
   {
     id: 11,
-    title: "어쩌구저쩌구 11",
+    title: "물",
   },
   {
     id: 12,
-    title: "어쩌구저쩌구 12",
+    title: "탄수화물",
   },
   {
     id: 13,
-    title: "어쩌구저쩌구 13",
+    title: "무기질",
   },
   {
     id: 14,
-    title: "어쩌구저쩌구 14",
+    title: "칼슘",
   },
   {
     id: 15,
-    title: "어쩌구저쩌구 15",
+    title: "에너지 공급\n기능을 하는 영양소",
   },
   {
     id: 16,
-    title: "어쩌구저쩌구 16",
+    title: "지방",
   },
 ];
