@@ -18,7 +18,7 @@ export const bingoContents: BingoContent[] = [
   },
   {
     id: 4,
-    title: "비타민",
+    title: "콜레스테롤 종류",
   },
   {
     id: 5,
