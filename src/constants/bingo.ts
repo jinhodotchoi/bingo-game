@@ -54,7 +54,7 @@ export const bingoContents: BingoContent[] = [
   },
   {
     id: 13,
-    title: "무기질",
+    title: "필수 지방산 종류",
   },
   {
     id: 14,
