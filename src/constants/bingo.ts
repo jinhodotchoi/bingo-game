@@ -5,4 +5,4 @@ export type BingoContent = {
   title: string;
 };
 
-export const bingoContents = bingoContentsImpl.data as BingoContent[];
+export const bingoContents = bingoContentsImpl as BingoContent[];
