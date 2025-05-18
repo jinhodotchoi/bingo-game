@@ -3,7 +3,7 @@ import { Box, BoxProps, GridItem, Text } from "@chakra-ui/react";
 import { GroupId } from "~/constants/group";
 import { groupsAtom } from "~/atoms/group-atom";
 import { useAtom, useAtomValue } from "jotai";
-import { cellAtomFamily, NO_WINNING_GROUP } from "~/atoms/bingo-atom";
+import { cellAtomFamily, NO_CORRECT_GROUP } from "~/atoms/bingo-atom";
 import { value } from "~/utils/value";
 
 type BingoCellProps = {
@@ -18,7 +18,7 @@ export function BingoCell({ content }: BingoCellProps) {
 
   const groups = useAtomValue(groupsAtom);
 
-  const backgroundColor = cell.winningGroup === NO_WINNING_GROUP ? "white" : groups.find(({ id }) => id == cell.winningGroup)?.color;
+  const backgroundColor = cell.correctGroup === NO_CORRECT_GROUP ? "white" : groups.find(({ id }) => id == cell.correctGroup)?.color;
 
   const hoverEffect: BoxProps = {
     _hover: {
@@ -47,12 +47,10 @@ export function BingoCell({ content }: BingoCellProps) {
             return;
           }
 
-          const prompt = window.prompt("맞춘 팀을 입력하세요");
-
-          const teamId = Number(prompt) as GroupId;
+          const teamId = Number(prompt("맞춘 팀을 입력하세요")) as GroupId;
 
           setCell({
-            winningGroup: teamId,
+            correctGroup: teamId,
           });
         }}
       >
