@@ -47,7 +47,7 @@ export function BingoCell({ content }: BingoCellProps) {
             return;
           }
 
-          const teamId = Number(prompt("맞춘 팀을 입력하세요")) as GroupId;
+          const teamId = Number(prompt("맞춘 팀의 번호를 입력하세요(ex. 4)")) as GroupId;
 
           setCell({
             correctGroup: teamId,
