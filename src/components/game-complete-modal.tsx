@@ -1,9 +1,8 @@
-import { GroupId } from "~/constants/group";
-import { useState } from "react";
 import { Box, createOverlay, Portal, Button, For, NativeSelect, Text, VStack, HStack } from "@chakra-ui/react";
 import { groupsAtom } from "~/atoms/group-atom";
 import { useAtomValue } from "jotai";
 import { bingoAtom } from "~/atoms/bingo-atom";
+import Confetti from "react-confetti";
 
 type GameCompleteModalProps = {
   onClose: () => void;
@@ -82,6 +81,7 @@ export const GameCompleteModal = createOverlay(function GameCompleteModalImpl({ 
           </Box>
         </Box>
       </Box>
+      <Confetti width={window.innerWidth} height={window.innerHeight} initialVelocityY={20} />
     </Portal>
   );
 });

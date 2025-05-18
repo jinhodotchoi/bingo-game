@@ -16,6 +16,7 @@ export default function BingoPage() {
 
   const bingo = useAtomValue(bingoAtom);
 
+  // FIXME: effect에 의존하지 않고 event handler에서 해당 내용 구현되어야함
   useEffect(() => {
     const isGameComplete = Object.values(bingo).filter((cell) => cell.correctGroup === NO_CORRECT_GROUP).length === 0;
 
