@@ -3,9 +3,13 @@ import { bingoContents } from "~/constants/bingo";
 import { GroupId } from "~/constants/group";
 import { atomFamily, atomWithStorage, createJSONStorage } from "jotai/utils";
 
+export const NO_WINNING_GROUP = 0;
+
+type WinningGroup = typeof NO_WINNING_GROUP | GroupId;
+
 type BingoEntity = {
   isOpen: boolean;
-  winningGroup: 0 | GroupId;
+  winningGroup: WinningGroup;
 };
 
 type BingoAtom = Record<number, BingoEntity>;
@@ -18,15 +22,15 @@ export const getBingoAtomInitialValue = () =>
       ...acc,
       [bingoContent.id]: {
         isOpen: false,
-        winningGroup: 0 as 0 | GroupId,
+        winningGroup: NO_WINNING_GROUP as WinningGroup,
       },
     }),
-    {} as BingoAtom
+    {} as BingoAtom,
   );
 
 export const bingoAtom = atomWithStorage<BingoAtom>("__bingo", getBingoAtomInitialValue(), storage);
 
-export const bingoAtomFamily = atomFamily((id: number) =>
+export const cellAtomFamily = atomFamily((id: number) =>
   atom(
     (get) => get(bingoAtom)[id],
     (get, set, args: Partial<BingoEntity>) => {
@@ -39,6 +43,6 @@ export const bingoAtomFamily = atomFamily((id: number) =>
           ...args,
         },
       });
-    }
-  )
+    },
+  ),
 );

@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { ChakraProvider, createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 import { Global } from "@emotion/react";
 import Head from "next/head";
 
@@ -12,12 +12,22 @@ const globalStyles = /* css */ `
     }
 `;
 
-const theme = extendTheme({
-  fonts: {
-    heading: ["TheJamsil5Bold", "sans-serif"].join(","),
-    body: ["TheJamsil5Bold", "sans-serif"].join(","),
+const config = defineConfig({
+  theme: {
+    tokens: {
+      fonts: {
+        heading: {
+          value: ["TheJamsil5Bold", "sans-serif"].join(","),
+        },
+        body: {
+          value: ["TheJamsil5Bold", "sans-serif"].join(","),
+        },
+      },
+    },
   },
 });
+
+const system = createSystem(defaultConfig, config);
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -26,7 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>영양소 빙고게임</title>
         <meta name="viewport" content="width=950, initial-scale=1, shrink-to-fit=no" />
       </Head>
-      <ChakraProvider theme={theme}>
+      <ChakraProvider value={system}>
         <Global styles={globalStyles} />
         <Component {...pageProps} />
       </ChakraProvider>

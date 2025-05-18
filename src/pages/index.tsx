@@ -1,5 +1,5 @@
 import { MouseEventHandler, useState } from "react";
-import { Box, Button, Heading, Highlight, Select, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, For, Heading, Highlight, NativeSelect, Text, VStack } from "@chakra-ui/react";
 import { GroupId, groups } from "~/constants/group";
 import Link from "next/link";
 import { useSetAtom } from "jotai";
@@ -32,13 +32,17 @@ export default function LandingPage() {
           </Heading>
           <VStack gap={5}>
             <Text>조의 갯수를 입력해주세요!</Text>
-            <Select bgColor={"white"} onChange={(e) => setGroupNumber(+e.target.value as GroupId)} value={groupNumber}>
-              {groups.map((group) => (
-                <option value={group.id} key={group.id}>
-                  {group.id}조
-                </option>
-              ))}
-            </Select>
+            <NativeSelect.Root bgColor={"white"}>
+              <NativeSelect.Field onChange={(e) => setGroupNumber(+e.target.value as GroupId)} value={groupNumber} placeholder="--">
+                <For each={groups}>
+                  {(group) => (
+                    <option value={group.id} key={group.id}>
+                      {group.id}조
+                    </option>
+                  )}
+                </For>
+              </NativeSelect.Field>
+            </NativeSelect.Root>
             <Link href={"/bingo"} onClick={onLinkClick}>
               <Button colorScheme={"pink"}>시작하기</Button>
             </Link>
