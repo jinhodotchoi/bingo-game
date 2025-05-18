@@ -5,6 +5,7 @@ import { GroupId } from "~/constants/group";
 import { groupsAtom } from "~/atoms/groupAtom";
 import { useAtom } from "jotai";
 import { bingoAtomFamily } from "~/atoms/bingoAtom";
+import { value } from "~/utils/value";
 
 type BingoBlockProps = {
   content: {
@@ -54,16 +55,19 @@ export function BingoCell({ content }: BingoBlockProps) {
         {...(!bingo.isOpen && hoverEffect)}
         onClick={() => setBingo({ isOpen: true })}
       >
-        {match(bingo.isOpen)
-          .with(false, () => (
-            <Box display={"flex"} alignItems={"flex-end"} gap={1}>
-              <Text as={"strong"} fontSize={"24px"}>
-                {content.id}
-              </Text>
-              번
-            </Box>
-          ))
-          .with(true, () => (
+        {value(() => {
+          if (bingo.isOpen) {
+            return (
+              <Box display={"flex"} alignItems={"flex-end"} gap={1}>
+                <Text as={"strong"} fontSize={"24px"}>
+                  {content.id}
+                </Text>
+                번
+              </Box>
+            );
+          }
+
+          return (
             <Box fontSize={"18px"}>
               <Select pos={"absolute"} top={"5px"} right={"5px"} w={"50%"} onChange={onGroupSelectChanged} value={bingo.winningGroup}>
                 <option value={0}>--</option>
@@ -77,8 +81,8 @@ export function BingoCell({ content }: BingoBlockProps) {
                 {content.title}
               </Text>
             </Box>
-          ))
-          .exhaustive()}
+          );
+        })}
       </Box>
     </GridItem>
   );
