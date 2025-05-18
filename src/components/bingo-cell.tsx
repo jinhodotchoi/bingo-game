@@ -1,10 +1,10 @@
-import React from "react";
+import { useId } from "react";
 import { Box, BoxProps, GridItem, Text } from "@chakra-ui/react";
-import { GroupId } from "~/constants/group";
 import { groupsAtom } from "~/atoms/group-atom";
 import { useAtom, useAtomValue } from "jotai";
 import { cellAtomFamily, NO_CORRECT_GROUP } from "~/atoms/bingo-atom";
 import { value } from "~/utils/value";
+import { CorrectGroupModal } from "./correct-group-modal";
 
 type BingoCellProps = {
   content: {
@@ -17,6 +17,8 @@ export function BingoCell({ content }: BingoCellProps) {
   const [cell, setCell] = useAtom(cellAtomFamily(content.id));
 
   const groups = useAtomValue(groupsAtom);
+
+  const overlayId = useId();
 
   const backgroundColor = cell.correctGroup === NO_CORRECT_GROUP ? "white" : groups.find(({ id }) => id == cell.correctGroup)?.color;
 
@@ -40,6 +42,7 @@ export function BingoCell({ content }: BingoCellProps) {
         justifyContent={"center"}
         transition={"all .2s linear"}
         cursor={"pointer"}
+        px={1}
         {...(!cell.isOpen && hoverEffect)}
         onClick={() => {
           if (!cell.isOpen) {
@@ -47,10 +50,14 @@ export function BingoCell({ content }: BingoCellProps) {
             return;
           }
 
-          const teamId = Number(prompt("맞춘 팀의 번호를 입력하세요(ex. 4)")) as GroupId;
-
-          setCell({
-            correctGroup: teamId,
+          CorrectGroupModal.open(overlayId, {
+            onClose: () => {
+              CorrectGroupModal.remove(overlayId);
+            },
+            onConfirm: (value) => {
+              setCell({ correctGroup: value });
+              CorrectGroupModal.remove(overlayId);
+            },
           });
         }}
       >
@@ -67,8 +74,8 @@ export function BingoCell({ content }: BingoCellProps) {
           }
 
           return (
-            <Box fontSize={"16px"}>
-              <Text wordBreak={"keep-all"} textAlign={"center"}>
+            <Box fontSize={"18px"}>
+              <Text wordBreak={"keep-all"} textAlign={"center"} whiteSpace={"pre-wrap"}>
                 {content.title}
               </Text>
             </Box>

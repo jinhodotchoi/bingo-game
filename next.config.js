@@ -1,13 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.json$/,
-      type: "json",
-    });
+  ...(process.env.NODE_ENV === "production" && {
+    webpack: (config) => {
+      config.module.rules.push({
+        test: /\.json$/,
+        type: "json",
+      });
 
-    return config;
+      return config;
+    },
+  }),
+  experimental: {
+    optimizePackageImports: ["@chakra-ui/react"],
   },
 };
 

@@ -4,12 +4,12 @@ import { Global } from "@emotion/react";
 import Head from "next/head";
 
 const globalStyles = /* css */ `
-    @font-face {
-        font-family: 'TheJamsil5Bold';
-        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
-        font-weight: 700;
-        font-style: normal;
-    }
+  @font-face {
+    font-family: 'Ownglyph_corncorn-Rg';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2412-1@1.0/Ownglyph_corncorn-Rg.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
 `;
 
 const config = defineConfig({
@@ -17,10 +17,10 @@ const config = defineConfig({
     tokens: {
       fonts: {
         heading: {
-          value: ["TheJamsil5Bold", "sans-serif"].join(","),
+          value: ["Ownglyph_corncorn-Rg", "sans-serif"].join(","),
         },
         body: {
-          value: ["TheJamsil5Bold", "sans-serif"].join(","),
+          value: ["Ownglyph_corncorn-Rg", "sans-serif"].join(","),
         },
       },
     },

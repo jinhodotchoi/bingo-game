@@ -8,30 +8,30 @@ type GroupInfo = {
 export const groups: GroupInfo[] = [
   {
     id: 1,
-    color: "red.200",
+    color: "red.300",
   },
   {
     id: 2,
-    color: "orange.200",
+    color: "orange.300",
   },
   {
     id: 3,
-    color: "green.200",
+    color: "green.300",
   },
   {
     id: 4,
-    color: "teal.200",
+    color: "teal.300",
   },
   {
     id: 5,
-    color: "blue.200",
+    color: "blue.300",
   },
   {
     id: 6,
-    color: "purple.200",
+    color: "purple.300",
   },
   {
     id: 7,
-    color: "pink.200",
+    color: "pink.300",
   },
 ];

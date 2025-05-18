@@ -7,6 +7,7 @@ import { groupNumberAtom } from "~/atoms/group-atom";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { bingoAtom, getBingoAtomInitialValue } from "~/atoms/bingo-atom";
+import { noop } from "~/utils/noop";
 
 export default function LandingPage() {
   const [groupNumber, setGroupNumber] = useState<GroupId>(1);
@@ -20,20 +21,18 @@ export default function LandingPage() {
     e.preventDefault();
     setBingo(getBingoAtomInitialValue());
     setGroupNumberGlobally(groupNumber);
-    router.push(e.currentTarget.href).catch(/* noop */);
+    router.push(e.currentTarget.href).catch(noop);
   };
 
   return (
     <Box bgColor={"pink.50"} h={"100vh"} display={"flex"}>
       <Box m={"auto"} flexShrink={0}>
         <VStack gap={20}>
-          <Heading>
-            <Highlight query={"영양소 빙고게임"}>즐거운 영양소 빙고게임 ❤️</Highlight>
-          </Heading>
+          <Heading fontSize={"26px"}>즐거운 영양소 빙고게임 ❤️</Heading>
           <VStack gap={5}>
-            <Text>조의 갯수를 입력해주세요!</Text>
+            <Text>조의 개수를 입력해주세요!</Text>
             <NativeSelect.Root bgColor={"white"}>
-              <NativeSelect.Field onChange={(e) => setGroupNumber(+e.target.value as GroupId)} value={groupNumber} placeholder="--">
+              <NativeSelect.Field onChange={(e) => setGroupNumber(+e.target.value as GroupId)} value={groupNumber}>
                 <For each={groups}>
                   {(group) => (
                     <option value={group.id} key={group.id}>
@@ -44,10 +43,10 @@ export default function LandingPage() {
               </NativeSelect.Field>
             </NativeSelect.Root>
             <Link href={"/bingo"} onClick={onLinkClick}>
-              <Button colorScheme={"pink"}>시작하기</Button>
+              <Button>시작하기</Button>
             </Link>
           </VStack>
-          <Image src={"/choonsik-animation.gif"} alt={"귀여운 춘식이"} width={210} height={210} />
+          <Image src={"/choonsik-animation.gif"} alt={"귀여운 춘식이"} width={210} height={210} priority={false} unoptimized />
         </VStack>
       </Box>
     </Box>
