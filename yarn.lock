@@ -2108,7 +2108,6 @@ __metadata:
     framer-motion: "npm:^12.12.1"
     jotai: "npm:^2.12.4"
     next: "npm:^15.3.2"
-    overlay-kit: "npm:^1.8.1"
     prettier: "npm:^3.5.3"
     react: "npm:^19.1.0"
     react-dom: "npm:^19.1.0"
@@ -4675,16 +4674,6 @@ __metadata:
     type-check: "npm:^0.4.0"
     word-wrap: "npm:^1.2.5"
   checksum: 10c0/4afb687a059ee65b61df74dfe87d8d6815cd6883cb8b3d5883a910df72d0f5d029821f37025e4bccf4048873dbdb09acc6d303d27b8f76b1a80dd5a7d5334675
-  languageName: node
-  linkType: hard
-
-"overlay-kit@npm:^1.8.1":
-  version: 1.8.1
-  resolution: "overlay-kit@npm:1.8.1"
-  peerDependencies:
-    react: ^16.8 || ^17 || ^18 || ^19
-    react-dom: ^16.8 || ^17 || ^18 || ^19
-  checksum: 10c0/6ddc18e88772d8630a3ef30a6b5fec17cc787303c2b41c9692d86756840dd908ba5fd7766c8ff4ca46f2a4699d55ef8e76f7a2409e553fd43eea936a6f0ca79a
   languageName: node
   linkType: hard
 
