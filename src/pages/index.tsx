@@ -3,10 +3,10 @@ import { Box, Button, For, Heading, Highlight, NativeSelect, Text, VStack } from
 import { GroupId, groups } from "~/constants/group";
 import Link from "next/link";
 import { useSetAtom } from "jotai";
-import { groupNumberAtom } from "~/atoms/groupAtom";
+import { groupNumberAtom } from "~/atoms/group-atom";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { bingoAtom, getBingoAtomInitialValue } from "~/atoms/bingoAtom";
+import { bingoAtom, getBingoAtomInitialValue } from "~/atoms/bingo-atom";
 
 export default function LandingPage() {
   const [groupNumber, setGroupNumber] = useState<GroupId>(1);

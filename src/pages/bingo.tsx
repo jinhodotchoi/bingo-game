@@ -4,7 +4,7 @@ import { BingoCell } from "~/components/bingo-cell";
 import { bingoContents } from "~/constants/bingo";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { groupsAtom } from "~/atoms/groupAtom";
+import { groupsAtom } from "~/atoms/group-atom";
 import { useAtomValue } from "jotai";
 
 export default function BingoPage() {

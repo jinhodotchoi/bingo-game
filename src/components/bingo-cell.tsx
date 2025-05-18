@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, BoxProps, GridItem, Text } from "@chakra-ui/react";
 import { GroupId } from "~/constants/group";
-import { groupsAtom } from "~/atoms/groupAtom";
+import { groupsAtom } from "~/atoms/group-atom";
 import { useAtom, useAtomValue } from "jotai";
-import { cellAtomFamily, NO_WINNING_GROUP } from "~/atoms/bingoAtom";
+import { cellAtomFamily, NO_WINNING_GROUP } from "~/atoms/bingo-atom";
 import { value } from "~/utils/value";
 
 type BingoCellProps = {
