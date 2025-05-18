@@ -1,15 +1,19 @@
-import React, { ChangeEventHandler, FC } from "react";
+import React, { ChangeEventHandler } from "react";
 import { Box, BoxProps, GridItem, Select, Text } from "@chakra-ui/react";
-import { BingoContent } from "~/constants/bingo";
 import { match } from "ts-pattern";
 import { GroupId } from "~/constants/group";
 import { groupsAtom } from "~/atoms/groupAtom";
 import { useAtom } from "jotai";
 import { bingoAtomFamily } from "~/atoms/bingoAtom";
 
-const Bingo_Block: FC<{
-  content: BingoContent;
-}> = ({ content }) => {
+type BingoBlockProps = {
+  content: {
+    id: number;
+    title: string;
+  };
+};
+
+export function BingoCell({ content }: BingoBlockProps) {
   const [bingo, setBingo] = useAtom(bingoAtomFamily(content.id));
 
   const [groups] = useAtom(groupsAtom);
@@ -78,6 +82,4 @@ const Bingo_Block: FC<{
       </Box>
     </GridItem>
   );
-};
-
-export default Bingo_Block;
+}

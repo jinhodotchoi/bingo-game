@@ -1,19 +1,19 @@
-import React, { FC } from "react";
+import React from "react";
 import { Box, Container, Flex, Grid, Heading, List, ListItem } from "@chakra-ui/react";
-import Bingo_Block from "~/components/Bingo_Block";
+import { BingoCell } from "~/components/bingo-cell";
 import { bingoContents } from "~/constants/bingo";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { groupsAtom } from "~/atoms/groupAtom";
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 
-const Bingo_Page: FC = () => {
-  const [groups] = useAtom(groupsAtom);
+export default function BingoPage() {
+  const groups = useAtomValue(groupsAtom);
 
   return (
     <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
       <Box bgColor={"pink.50"} h={"100vh"} display={"flex"}>
-        <Container maxW={"750px"} w={"750px"} flexShrink={0} m={"auto"}>
+        <Container maxW={"900px"} w={"900px"} flexShrink={0} m={"auto"}>
           <Flex direction={"column"} gap={5}>
             <Flex justifyContent={"space-between"} alignItems={"center"}>
               <Heading as={"h1"} fontSize={"3xl"}>
@@ -30,9 +30,9 @@ const Bingo_Page: FC = () => {
                 </List>
               </Box>
             </Flex>
-            <Grid gap={"6"} gridTemplateColumns={"repeat(4, 1fr)"}>
+            <Grid gap={"4"} gridTemplateColumns={"repeat(6, 1fr)"}>
               {bingoContents.map((content) => (
-                <Bingo_Block content={content} key={content.id} />
+                <BingoCell content={content} key={content.id} />
               ))}
             </Grid>
           </Flex>
@@ -43,6 +43,4 @@ const Bingo_Page: FC = () => {
       </Box>
     </motion.div>
   );
-};
-
-export default Bingo_Page;
+}

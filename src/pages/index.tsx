@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useState } from "react";
 import { Box, Button, Heading, Highlight, Select, Text, VStack } from "@chakra-ui/react";
 import { GroupId, groups } from "~/constants/group";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { bingoAtom, getBingoAtomInitialValue } from "~/atoms/bingoAtom";
 
-const Landing_Page: FC = () => {
+export default function LandingPage() {
   const [groupNumber, setGroupNumber] = useState<GroupId>(1);
 
   const setGroupNumberGlobally = useSetAtom(groupNumberAtom);
@@ -48,6 +48,4 @@ const Landing_Page: FC = () => {
       </Box>
     </Box>
   );
-};
-
-export default Landing_Page;
+}
